@@ -60,7 +60,7 @@ var twoSum = function(nums, target) {
         if (target - num in pairIdx) {
             // Return index of found integer in obj
             return [i, pairIdx[target - num]];
-        }
+        };
         // Create num/index pair
         pairIdx[num] = i;
     };
@@ -80,7 +80,7 @@ var twoSum = function(nums, target) {
         // by subtracting the current value by the target value.
 
         // If the value, index pair exists, then return the index of stored value and the current index
-        if (store[nums[i]] !== undefined) return [store[nums[i]], i];
+        if (store[nums[i]] !== undefined:wq) return [store[nums[i]], i];
 
         // If value/index pair doesn't exist, store the 'desired' value/index in the hold obj
         store[target - nums[i]] = i;
