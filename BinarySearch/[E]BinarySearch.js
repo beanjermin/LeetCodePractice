@@ -44,30 +44,5 @@ var search = function(nums, target) {
     return nums[lo] == target ? lo : -1;
 };
 
-mid= nums.length-1 +
-5/2 = 2.5 = 2
-
-
-[-1,0,3,5,9,12], target = 9
-lo = 0
-hi = 5
-mid = 5/2 = floor 2.5 = 2
-index 2 = int 3
-3 < 9
-
-lo=3
-
-
-[-1,0,3,9,12], target = 12
-lo = 0
-hi = 4
-mid = 4/2 = 2 = 2
-index 2 = int 3
-3 < 12
-lo = index 2 + 1 = 3
-index 3 = int 9
-lo = 3
-hi = 4
-mid = 7/2 = 3.5 = 3
 
 

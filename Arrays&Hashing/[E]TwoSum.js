@@ -79,7 +79,7 @@ var twoSum = function(nums, target) {
         // The plan is to save the desired number and it's corresponding index
         // by subtracting the current value by the target value.
 
-        // If the value, index pair exists, then return the index of stored value and the current index
+        // If the value/index pair exists, then return the index of stored value and the current index
         if (store[nums[i]] !== undefined) return [store[nums[i]], i];
 
         // If value/index pair doesn't exist, store the 'desired' value/index in the hold obj
