@@ -106,6 +106,3 @@ var search = function(nums, target) {
 
     return nums[lo] == target ? lo : -1;
 };
-
-
-
