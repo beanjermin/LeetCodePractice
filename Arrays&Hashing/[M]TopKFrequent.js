@@ -84,3 +84,32 @@ var topKFrequent = function (nums, k) {
 
     return result;
 };
+
+// ======================== SOLUTION O(n) ========================
+// Time Complexity: O(n)
+
+var topKFrequent = function (nums, k) {
+    let freqMap = new Map();
+
+    // Step 1: Count the frequency of each element
+    for (let num of nums) {
+        freqMap.set(num, (freqMap.get(num) || 0) + 1);
+    }
+
+    // Step 2: Create the buckets
+    let buckets = new Array(nums.length + 1).fill().map(() => []);
+
+    // Step 3: Fill the buckets with numbers by their frequencies
+    for (let [num, freq] of freqMap) {
+        buckets[freq].push(num);
+    }
+
+    // Step 4: Extract the top k frequent elements from the buckets
+    let result = [];
+    for (let i = buckets.length - 1; i >= 0; i--) {
+        if (buckets[i]) result.push(...buckets[i]);
+        if (result.length === k) break;
+    }
+
+    return result;
+};
