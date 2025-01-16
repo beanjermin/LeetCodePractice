@@ -47,35 +47,63 @@ Since there are two 8's in the top left 3x3 sub-box, it is invalid.
 */
 
 // ======================== SOLUTION 1 ========================
-// Time Complexity:
+// Time Complexity: O(n) Linear complexity bc nested loop
+
+/*
+CODE PLANNING:
+There are three main factors we need to keep track of:
+    1. rows
+    2. columns
+    3. quadrants
+
+Let's take a second to log some key aspects of the problem:
+    1. the input board/matrix is 9x9, meaning each row and column is 9 elements long
+    2. each quadrant is is a 3x3 box
+    3. each row, column and box need to contain the numbers 1-9 UNIQUE
+
+So, we need to figure out a way to keep track of these 3 factors
+How do we want to store each value?
+How do we want to traverse the board?
+
+We will traverse the board one row at a time from left to right, top to bottom
+As we traverse the board, we want to record each number that is contained in each row, column and quadrant
+First instinct is to create a nested loop
+Then create a way to store each value for each row, column, and quadrant
+
+Maybe we can create an array of sets (use Set objects bc each value must be unique and retreival is constant time) for each factor
+Then loop through the board and record each value in its respective set
+*/
 
 var isValidSudoku = function (board) {
-    let rows = Array.from({ length: 9 }, () => new Set());
-    let cols = Array.from({ length: 9 }, () => new Set());
-    let boxes = Array.from({ length: 9 }, () => new Set());
+    let rows = Array.from({ length: 9 }, () => new Set()); // Create an array of Set Objs for each row
+    let cols = Array.from({ length: 9 }, () => new Set()); // Create an array of Set Objs for each column
+    let boxes = Array.from({ length: 9 }, () => new Set()); // Create an array of Set Objs for each quadrant
 
+    // Iterate through the board by implementing a nested loop
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
+            // If space is empty, just move on
             if (board[r][c] === ".") {
                 continue;
             }
 
-            let value = board[r][c];
-            let boxIndex = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+            let value = board[r][c]; // Hold current value on the board
+            let boxIndex = Math.floor(r / 3) * 3 + Math.floor(c / 3); // Calculate which quadrant current value is located
 
+            // Check if current value is in each Set
             if (
-                rows[r].has(value) ||
-                cols[c].has(value) ||
-                boxes[boxIndex].has(value)
+                rows[r].has(value) || // Checks if current value is in row Set
+                cols[c].has(value) || // Checks if current value is in col Set
+                boxes[boxIndex].has(value) // Checks if current value is in box Set
             ) {
-                return false;
+                return false; // If value already exists, sudoku fails
             }
 
-            rows[r].add(value);
-            cols[c].add(value);
-            boxes[boxIndex].add(value);
+            rows[r].add(value); // Add current value to row Set
+            cols[c].add(value); // Add current value to col Set
+            boxes[boxIndex].add(value); // Add current value to box Set
         }
     }
-
-    return true;
+    // If nothing gets flagged,
+    return true; // Return true
 };
