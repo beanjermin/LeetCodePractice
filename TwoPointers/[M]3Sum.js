@@ -142,34 +142,57 @@ Example: [1, 2, 3, 4, 5, 6, 7] target = 0
 // Space Complexity: O(1) only holding result array
 
 var threeSum = function (nums) {
+    let results = []; // results hold array
+    
+    // Constraint: nums array should have at least 3 numbers
     if (nums.length < 3) return results;
     
-    let results = [];
-
+    // sort the nums array so we can implement the pointer method
     nums.sort((a, b) => a - b);
 
+    // Iterate over the nums array
+    // Note: nums.length - 2 because j and k covers the last two numbers
+    // in other words, i never gets to the last two numbers
+    // worst case scenario, it looks like this:
+    //                       i  j  k
+    //          [-4, -1, -1, 0, 1, 2]
+    //                       ^  ^  ^
     for (let i = 0; i < nums.length - 2; i++) {
+        // Check for duplicates
+        // i cannot be a positive number bc we're looking for sum of 0 
+        // AND
+        // if current number was already accounted for previously, continue
         if (i > 0 && nums[i] === nums[i - 1]) continue;
 
-        let j = i + 1;
-        let k = nums.length - 1;
+        let j = i + 1; // define j (always starts one after i)
+        let k = nums.length - 1; // define k (always starts at the end)
 
+        // while loop effectively covers elements between j and k
+        // while j is less than k
         while (j < k) {
-            let sum = nums[i] + nums[j] + nums[k];
+            let sum = nums[i] + nums[j] + nums[k]; // sum of the 3 current numbers
 
+            // If the sum equals our target
             if (sum === 0) {
-                results.push([nums[i], nums[j], nums[k]]);
+                results.push([nums[i], nums[j], nums[k]]); // push that b into the result hold array
 
-                while (nums[j] === nums[j + 1]) j++;
-                while (nums[k] === nums[k - 1]) k--;
-                j++;
-                k--;
+                // just as we're checking for dups with i, we need to do the same for j and k
+                while (nums[j] === nums[j + 1]) j++; // if current j and j+1 are the same, move j UP
+                while (nums[k] === nums[k - 1]) k--; // if current k and k-1 are the same, move k BACK
+                
+                // in case of no duplicates
+                j++; // still need to increment j
+                k--; // still need to increment k
+
+              // if sum is less than 0, we need to move j up to increase the sum
             } else if (sum < 0) {
                 j++;
+
+              // else if sum is greater, decrement k to decrease the sum
             } else {
                 k--;
             }
         }
     }
-    return results;
+    return results; // return the results
 };
